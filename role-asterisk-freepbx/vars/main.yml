@@ -16,3 +16,43 @@ dependencies_asterisk:
 
 path_asterisk: "/etc/default/asterisk"
 path_asterisk_conf: "/etc/asterisk/asterisk.conf"
+
+packages_mariadb:
+  - mariadb-server 
+  - mariadb-client
+  - python3-pymysql
+
+dependencies_nodejs:
+  - curl 
+  - dirmngr 
+  - apt-transport-https 
+  - lsb-release 
+  - ca-certificates
+
+packages_nodejs:
+  - gcc 
+  - g++ 
+  - make 
+  - nodejs
+
+dependencies_php:
+  - lsb-release 
+  - software-properties-common 
+  - gnupg2
+
+packages_php:
+  - php7.4-mysql
+  - php7.4-cli
+  - php7.4-common
+  - php7.4-imap
+  - php7.4-ldap
+  - php7.4-xml
+  - php7.4-fpm
+  - php7.4-curl
+  - php7.4-mbstring
+  - php7.4-zip
+  - php7.4-gd
+  - php7.4-gettext
+  - php7.4-xml
+  - php7.4-json
+  - libapache2-mod-php7.4

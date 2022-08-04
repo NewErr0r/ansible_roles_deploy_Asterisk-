@@ -33,3 +33,6 @@
     - Restart Asterisk
 
 ########################################################################
+
+- name: Install FreePBX 16 on Debian 11 / Debian 10
+  include_tasks: deploy_freepbx.yaml

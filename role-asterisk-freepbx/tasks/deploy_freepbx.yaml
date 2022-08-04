@@ -1,0 +1,82 @@
+- name: Install MariaDB database server / client
+  apt:
+    name: "{{ packages_mariadb }}"
+    state: latest
+    update_cache: yes
+
+- name: Started and Enabled MariaDB
+  service:
+    name: mariadb 
+    enabled: true 
+    state: started
+
+- name: Set up the DB and set root password
+  command: mysqladmin -u root password {{ root_pass }}
+
+- name: Install Node.JS
+  apt:
+    name: "{{ dependencies_nodejs }}"
+    state: latest
+    update_cache: yes 
+
+- name: Install Node.JS
+  shell:  |  
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo bash
+
+- name: System updates
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install packages for Node.JS
+  apt: 
+    name: "{{ packages_nodejs }}"
+    state: latest
+    update_cache: yes 
+
+- name: Install Apache2 Web Server
+  apt: 
+    name: apache2
+    state: latest
+    update_cache: yes
+
+- name: Settings Apache2
+  shell:  | 
+    cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf_orig
+    sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+    sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+    rm -f /var/www/html/index.html
+    unlink  /etc/apache2/sites-enabled/000-default.conf
+
+- name: Install dependency packages PHP
+  apt:
+    name: "{{ dependencies_php }}"
+    state: latest
+    update_cache: yes
+
+- name: Add Sury PPA repository which contain latest packages of PHP
+  shell:  | 
+    echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
+    wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
+
+- name: Uninstall any current version of PHP installed if not in use
+  apt: 
+    name: php* 
+    state: absent
+
+- name: Install PHP 7.4 packages and all required extensions
+  apt: 
+    name: "{{ packages_php }}"
+    state: latest 
+    update_cache: yes
+
+- name: Set maximum PHP filesize
+  shell: |
+     sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
+     sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/cli/php.ini
+     sed -i 's/\(^memory_limit = \).*/\1256M/' /etc/php/7.4/apache2/php.ini
+
+
+
