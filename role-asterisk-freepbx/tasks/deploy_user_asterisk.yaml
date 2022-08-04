@@ -1,0 +1,28 @@
+- name: Create group Asterisk
+  group:
+    name: asterisk 
+    state: present
+
+- name: Create user Asterisk
+  user: 
+    name: asterisk
+    shell: /var/lib/asterisk
+    groups: asterisk
+    append: yes
+
+- name: Asterisk usermod
+  command: usermod -aG audio,dialout asterisk
+
+- name: Assigning Asterisk to the owner
+  file: 
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: asterisk
+    group: asterisk
+  loop:
+    - /etc/asterisk
+    - /var/lib/asterisk
+    - /var/log/asterisk
+    - /var/spool/asterisk
+    - /usr/lib/asterisk

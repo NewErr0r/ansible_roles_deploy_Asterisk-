@@ -1,0 +1,10 @@
+- name: Download Asterisk 18 LTS
+  get_url:
+    url: "{{ url_asterisk }}"
+    dest: "{{ installation_path }}"
+
+- name: Unpacking the archive
+  unarchive:
+    src: asterisk-18-current.tar.gz
+    dest: "{{ installation_path }}"
+    remote_src: yes

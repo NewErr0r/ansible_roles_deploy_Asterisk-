@@ -1,0 +1,7 @@
+---
+- name: Install Asterisk 18 with FreePBX on Debian 11 / Debian 10
+  hosts: all
+  become: true
+
+  roles:
+    - role-asterisk-freepbx

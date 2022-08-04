@@ -1,0 +1,35 @@
+---
+- name: System updates
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install Asterisk 18 LTS Dependencies
+  apt: 
+    name: "{{ dependencies_asterisk }}"
+    state: latest
+    update_cache: yes 
+
+- name: Download and Install Asterisk 18 LTS
+  include_tasks: download_asterisk.yaml
+
+########################################################################
+
+- name: Create Asterisk User and Start Asterisk
+  include_tasks: deploy_user_asterisk.yaml
+
+- name: Settings file "asterisk"
+  copy:
+    src: asterisk
+    dest: "{{ path_asterisk }}"
+
+- name: Settings file "asterisk.conf"
+  copy:
+    src: asterisk.conf
+    dest: "{{ path_asterisk_conf }}"
+  notify: 
+    - Restart Asterisk
+
+########################################################################

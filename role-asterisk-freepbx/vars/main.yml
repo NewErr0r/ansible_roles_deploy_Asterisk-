@@ -1,0 +1,18 @@
+---
+dependencies_asterisk:
+  - git 
+  - vim 
+  - curl 
+  - wget 
+  - libnewt-dev 
+  - libssl-dev 
+  - libncurses5-dev 
+  - subversion 
+  - libsqlite3-dev 
+  - build-essential 
+  - libjansson-dev 
+  - libxml2-dev 
+  - uuid-dev
+
+path_asterisk: "/etc/default/asterisk"
+path_asterisk_conf: "/etc/asterisk/asterisk.conf"

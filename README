@@ -1,0 +1,65 @@
+После выполнения первой части роли необходимо выполнить сборку Asterisk с выбором необходимых модулей:
+
+1. A именно подключиться к серверу по SSH, затем перейти в каталог распакованного архива Asterisk:
+# cd asterisk-18*/
+
+2. Загрузите библиотеку mp3-декодера в дерево исходных текстов, используя приведенную ниже команду:
+# contrib/scripts/get_mp3_source.sh
+
+3. Убедитесь, что все зависимости устранены, выполнив приведенную ниже команду:
+# contrib/scripts/install_prereq install
+Вы можете увидеть запрос с просьбой ввести номер вашей страны, где будут использоваться телефоны, убедитесь, что указали правильный номер.
+В конце вы должны увидеть приведенный ниже вывод:
+#############################################
+## install completed successfully
+#############################################
+
+4. На данный момент мы готовы к сборке Asterisk LTS 18. Запустите сценарий настройки, как показано ниже, чтобы удовлетворить зависимости сборки:
+# ./configure
+При успешном запуске вы должны увидеть приведенный ниже вывод в конце:
+               .$$$$$$$$$$$$$$$=..      
+            .$7$7..          .7$$7:.    
+          .$$:.                 ,$7.7   
+        .$7.     7$$$$           .$$77  
+     ..$$.       $$$$$            .$$$7 
+    ..7$   .?.   $$$$$   .?.       7$$$.
+   $.$.   .$$$7. $$$$7 .7$$$.      .$$$.
+ .777.   .$$$$$$77$$$77$$$$$7.      $$$,
+ $$$~      .7$$$$$$$$$$$$$7.       .$$$.
+.$$7          .7$$$$$$$7:          ?$$$.
+$$$          ?7$$$$$$$$$$I        .$$$7 
+$$$       .7$$$$$$$$$$$$$$$$      :$$$. 
+$$$       $$$$$$7$$$$$$$$$$$$    .$$$.  
+$$$        $$$   7$$$7  .$$$    .$$$.   
+$$$$             $$$$7         .$$$.    
+7$$$7            7$$$$        7$$$      
+ $$$$$                        $$$       
+  $$$$7.                       $$  (TM)     
+   $$$$$$$.           .7$$$$$$  $$      
+     $$$$$$$$$$$$7$$$$$$$$$.$$$$$$      
+       $$$$$$$$$$$$$$$$.                
+
+configure: Package configured for: 
+configure: OS type  : linux-gnu
+configure: Host CPU : x86_64
+configure: build-cpu:vendor:os: x86_64 : pc : linux-gnu :
+configure: host-cpu:vendor:os: x86_64 : pc : linux-gnu :
+
+5.Теперь настройте параметры меню, которые вам понадобятся. Приведенная ниже команда отображает меню для выбора:
+# make menuselect
+
+https://techviewleo.com/wp-content/uploads/2021/12/Install_asterisk_18_lts_on_debian_11.jpeg.jpeg?ezimgfmt=ng:webp/ngcb7
+https://techviewleo.com/wp-content/uploads/2021/12/Install_asterisk_18_lts_on_debian_11_1.jpeg.jpeg?ezimgfmt=ng:webp/ngcb7
+https://techviewleo.com/wp-content/uploads/2021/12/Install_asterisk_18_lts_on_debian_10_1.jpeg.jpeg?ezimgfmt=ng:webp/ngcb7
+https://techviewleo.com/wp-content/uploads/2021/12/Install_asterisk_18_lts_on_debian_11_2.jpeg.jpeg?ezimgfmt=ng:webp/ngcb7
+https://techviewleo.com/wp-content/uploads/2021/12/Install_asterisk_18_lts_on_debian_10_2.jpeg.jpeg?ezimgfmt=ng:webp/ngcb7
+
+Когда закончите, нажмите Save and Exit. Помните, что вы можете добавить больше модулей в зависимости от того, что вам нужно для вашей установки:
+
+# make
+# make install
+# make samples
+# make config
+# ldconfig
+
+########################################################################################
