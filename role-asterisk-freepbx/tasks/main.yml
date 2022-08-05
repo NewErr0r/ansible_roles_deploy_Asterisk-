@@ -17,22 +17,11 @@
 
 ########################################################################
 
-- name: Create Asterisk User and Start Asterisk
-  include_tasks: deploy_user_asterisk.yaml
+#- name: Create Asterisk User and Start Asterisk
+#  include_tasks: deploy_user_asterisk.yaml
 
-- name: Settings file "asterisk"
-  copy:
-    src: asterisk
-    dest: "{{ path_asterisk }}"
+#- name: Install FreePBX 16 on Debian 11 / Debian 10
+#  include_tasks: deploy_freepbx.yaml
 
-- name: Settings file "asterisk.conf"
-  copy:
-    src: asterisk.conf
-    dest: "{{ path_asterisk_conf }}"
-  notify: 
-    - Restart Asterisk
-
-########################################################################
-
-- name: Install FreePBX 16 on Debian 11 / Debian 10
-  include_tasks: deploy_freepbx.yaml
+#- name: Install FreePBX 16 on Debian 11 / Debian 10
+#  include_tasks: install_freepbx.yaml

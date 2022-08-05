@@ -56,3 +56,15 @@ packages_php:
   - php7.4-xml
   - php7.4-json
   - libapache2-mod-php7.4
+
+dependencies_freepbx:
+  - sox 
+  - mpg123 
+  - lame 
+  - ffmpeg 
+  - sqlite3 
+  - unixodbc 
+  - postfix  
+  - odbc-mariadb 
+  - pkg-config 
+  - libicu-dev

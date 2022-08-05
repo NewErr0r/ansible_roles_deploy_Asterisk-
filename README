@@ -63,3 +63,7 @@ https://techviewleo.com/wp-content/uploads/2021/12/Install_asterisk_18_lts_on_de
 # ldconfig
 
 ########################################################################################
+
+Раскомментировать строки в файле "/role-asterisk-freepbx/tasks/main.yaml"
+
+Выполнить запуск роли

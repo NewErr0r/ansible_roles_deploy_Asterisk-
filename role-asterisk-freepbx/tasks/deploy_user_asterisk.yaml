@@ -26,3 +26,15 @@
     - /var/log/asterisk
     - /var/spool/asterisk
     - /usr/lib/asterisk
+
+- name: Settings file "asterisk"
+  copy:
+    src: asterisk
+    dest: "{{ path_asterisk }}"
+
+- name: Settings file "asterisk.conf"
+  copy:
+    src: asterisk.conf
+    dest: "{{ path_asterisk_conf }}"
+  notify: 
+    - Restart Asterisk

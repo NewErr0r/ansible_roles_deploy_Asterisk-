@@ -1,0 +1,62 @@
+- name: Install the following packages
+  apt: 
+    name: "{{ dependencies_freepbx }}"
+    state: latest
+    update_cache: yes
+
+- name: Configure ODBC
+  shell:  |
+    tee /etc/odbcinst.ini<<EOF
+    [MySQL]
+    Description = ODBC for MySQL (MariaDB)
+    Driver = /usr/lib/x86_64-linux-gnu/odbc/libmaodbc.so
+    FileUsage = 1
+    EOF
+    tee /etc/odbc.ini<<EOF
+    [MySQL-asteriskcdrdb]
+    Description = MySQL connection to 'asteriskcdrdb' database
+    Driver = MySQL
+    Server = localhost
+    Database = asteriskcdrdb
+    Port = 3306
+    Socket = /var/run/mysqld/mysqld.sock
+    Option = 3
+    EOF
+
+- name: Download FreePBX
+  get_url:
+    url: "{{ url_freepbx }}"
+    dest: "{{ installation_path }}"
+
+- name: Unpacking the archive
+  unarchive:
+    src: freepbx-16.0-latest.tgz
+    dest: "{{ installation_path }}"
+    remote_src: yes
+
+- name: Stoped Asterisk
+  service: 
+    name: asterisk
+    state: stopped 
+
+- name: Run the start script
+  shell:  |
+    cd {{ installation_path }}/freepbx
+    ./start_asterisk start
+    ./install -n --dbuser root --dbpass "{{ root_pass }}"
+    fwconsole ma disablerepo commercial
+    fwconsole ma installall
+    fwconsole ma delete firewall
+    fwconsole reload
+    fwconsole restart
+    a2enmod rewrite
+  
+- name: Restatred Apache2
+  service: 
+    name: apache2 
+    state: restarted 
+
+- name: started Asterisk
+  service: 
+    name: asterisk
+    state: started
